@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import Index from "./pages/Index";
+import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import AITestExecution from "./components/AITestExecution";
 import RequirementAnalysis from "./components/RequirementAnalysis";
@@ -45,6 +46,14 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route 
+              path="/dashboard" 
+              element={
+                <AppLayout>
+                  <Dashboard />
+                </AppLayout>
+              } 
+            />
             <Route 
               path="/ai-test-execution" 
               element={

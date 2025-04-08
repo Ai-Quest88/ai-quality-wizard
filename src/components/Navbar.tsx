@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Bug, Database, FileText, Play, Brain } from 'lucide-react';
+import { Bug, Database, FileText, Play, Brain, LayoutDashboard } from 'lucide-react';
 
 const Navbar = () => {
   return (
@@ -15,7 +15,10 @@ const Navbar = () => {
         
         <nav className="flex flex-1 items-center gap-6 text-sm sm:gap-4 md:gap-8">
           <Link to="/" className="flex items-center gap-1 font-medium text-foreground hover:text-qa-blue">
-            <Database className="h-4 w-4" />
+            <span>Home</span>
+          </Link>
+          <Link to="/dashboard" className="flex items-center gap-1 font-medium text-foreground hover:text-qa-blue">
+            <LayoutDashboard className="h-4 w-4" />
             <span>Dashboard</span>
           </Link>
           <Link to="/test-automation" className="flex items-center gap-1 font-medium text-foreground hover:text-qa-blue">

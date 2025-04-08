@@ -1,7 +1,6 @@
 
 import React from 'react';
 import Navbar from '@/components/Navbar';
-import DashboardMetrics from '@/components/DashboardMetrics';
 import QEAnimation from '@/components/QEAnimation';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Plus, Brain, CheckSquare, FileText, Star, Shield, Bot, Cpu, Gauge } from 'lucide-react';
@@ -16,34 +15,28 @@ const Index = () => {
       <main className="flex-1">
         <div className="container py-8">
           {/* Hero Section with Animation */}
-          <div className="mb-8 text-center">
+          <div className="mb-12 text-center">
             <h1 className="text-4xl sm:text-5xl font-bold mb-4 animate-fade-in">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-qa-blue to-accent">AIQE</span>
-              <span className="ml-2">Dashboard</span>
+              <span className="ml-2">Platform</span>
             </h1>
             <p className="text-muted-foreground max-w-3xl mx-auto mb-8 animate-fade-in" style={{animationDelay: "0.1s"}}>
-              Welcome to the AI-powered Quality Engineering Platform. Enhance your testing process with automated test execution, 
+              The AI-powered Quality Engineering Platform. Enhance your testing process with automated test execution, 
               requirement analysis, and AI-assisted test case generation.
             </p>
             
             <QEAnimation />
             
             <div className="flex flex-wrap gap-4 justify-center mt-6 animate-fade-in" style={{animationDelay: "0.3s"}}>
-              <Button size="lg" className="gap-2">
-                <Bot className="h-4 w-4" /> Get Started
+              <Button size="lg" className="gap-2" asChild>
+                <Link to="/dashboard">
+                  <Gauge className="h-4 w-4" /> Go to Dashboard
+                </Link>
               </Button>
               <Button variant="outline" size="lg" className="gap-2">
                 <FileText className="h-4 w-4" /> Documentation
               </Button>
             </div>
-          </div>
-          
-          <div className="mb-10">
-            <h2 className="text-xl font-semibold mb-4 flex items-center">
-              <Gauge className="mr-2 h-5 w-5 text-qa-blue" />
-              Dashboard Metrics
-            </h2>
-            <DashboardMetrics />
           </div>
           
           <div className="mb-12">
@@ -126,43 +119,72 @@ const Index = () => {
             </div>
           </div>
           
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold flex items-center">
-                <Shield className="mr-2 h-5 w-5 text-qa-blue" />
-                Recent Activity
-              </h2>
-              <Button variant="ghost" size="sm" className="flex items-center gap-1">
-                View All <ArrowRight className="h-3 w-3" />
-              </Button>
-            </div>
-            <div className="bg-card rounded-lg border shadow-sm">
-              <div className="p-4 border-b flex items-center justify-between">
-                <div className="font-medium">Activity</div>
-                <div className="text-sm text-muted-foreground">Time</div>
-              </div>
-              <div>
-                {[
-                  { message: 'Login Test Suite executed successfully', time: '2 hours ago', status: 'success' },
-                  { message: 'New requirement analyzed', time: '3 hours ago', status: 'info' },
-                  { message: 'Test cases generated for User Registration', time: '5 hours ago', status: 'info' },
-                  { message: 'Shopping Cart test failed', time: '1 day ago', status: 'error' },
-                  { message: 'New test automation created', time: '2 days ago', status: 'info' },
-                ].map((activity, i) => (
-                  <div key={i} className="px-4 py-3 border-b last:border-0 flex items-center justify-between hover:bg-muted/50 transition-colors">
-                    <div className="flex items-center">
-                      <div 
-                        className={`w-2 h-2 rounded-full mr-3 ${
-                          activity.status === 'success' ? 'bg-qa-success' : 
-                          activity.status === 'error' ? 'bg-qa-error' : 'bg-qa-blue'
-                        }`}
-                      ></div>
-                      <div className="text-sm">{activity.message}</div>
-                    </div>
-                    <div className="text-sm text-muted-foreground">{activity.time}</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <div className="bg-card rounded-lg border p-6 shadow-sm">
+              <h3 className="text-xl font-semibold mb-4 flex items-center">
+                <Cpu className="mr-2 h-5 w-5 text-qa-blue" />
+                Why Use AI for Testing?
+              </h3>
+              <ul className="space-y-3 text-sm">
+                <li className="flex items-start gap-2">
+                  <div className="min-w-4 mt-1 w-4 h-4 rounded-full bg-qa-blue/20 flex items-center justify-center">
+                    <div className="w-1.5 h-1.5 rounded-full bg-qa-blue"></div>
                   </div>
-                ))}
+                  <p>Reduce manual testing effort by up to 80% with intelligent test automation</p>
+                </li>
+                <li className="flex items-start gap-2">
+                  <div className="min-w-4 mt-1 w-4 h-4 rounded-full bg-qa-blue/20 flex items-center justify-center">
+                    <div className="w-1.5 h-1.5 rounded-full bg-qa-blue"></div>
+                  </div>
+                  <p>Identify edge cases and scenarios human testers might miss</p>
+                </li>
+                <li className="flex items-start gap-2">
+                  <div className="min-w-4 mt-1 w-4 h-4 rounded-full bg-qa-blue/20 flex items-center justify-center">
+                    <div className="w-1.5 h-1.5 rounded-full bg-qa-blue"></div>
+                  </div>
+                  <p>Continuously monitor applications for quality issues without manual intervention</p>
+                </li>
+                <li className="flex items-start gap-2">
+                  <div className="min-w-4 mt-1 w-4 h-4 rounded-full bg-qa-blue/20 flex items-center justify-center">
+                    <div className="w-1.5 h-1.5 rounded-full bg-qa-blue"></div>
+                  </div>
+                  <p>Generate comprehensive test reports with actionable insights</p>
+                </li>
+              </ul>
+              <Button variant="outline" className="mt-4 w-full">Learn More</Button>
+            </div>
+            
+            <div className="bg-card rounded-lg border p-6 shadow-sm">
+              <h3 className="text-xl font-semibold mb-4">Get Started Today</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Start using AIQE in three simple steps to transform your testing process.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-qa-blue flex items-center justify-center text-primary-foreground font-medium">1</div>
+                  <div>
+                    <h4 className="font-medium">Create a project</h4>
+                    <p className="text-sm text-muted-foreground">Set up your first quality engineering project</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-qa-blue flex items-center justify-center text-primary-foreground font-medium">2</div>
+                  <div>
+                    <h4 className="font-medium">Connect your application</h4>
+                    <p className="text-sm text-muted-foreground">Link your web application or API for testing</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-qa-blue flex items-center justify-center text-primary-foreground font-medium">3</div>
+                  <div>
+                    <h4 className="font-medium">Start testing</h4>
+                    <p className="text-sm text-muted-foreground">Run your first AI-powered test and analyze results</p>
+                  </div>
+                </div>
               </div>
+              <Button className="mt-4 w-full" asChild>
+                <Link to="/dashboard">Go to Dashboard</Link>
+              </Button>
             </div>
           </div>
         </div>
