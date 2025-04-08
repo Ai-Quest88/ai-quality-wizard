@@ -9,13 +9,13 @@ import { Link } from 'react-router-dom';
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
       
       <main className="flex-1">
         <div className="container py-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-2">QA Wizard Dashboard</h1>
+            <h1 className="text-3xl font-bold mb-2">AIQE Dashboard</h1>
             <p className="text-muted-foreground max-w-3xl">
               Welcome to the AI-powered Quality Engineering Platform. Enhance your testing process with automated test execution, 
               requirement analysis, and AI-assisted test case generation.
@@ -110,7 +110,7 @@ const Index = () => {
                 View All <ArrowRight className="h-3 w-3" />
               </Button>
             </div>
-            <div className="bg-white rounded-lg border shadow-sm">
+            <div className="bg-card rounded-lg border shadow-sm">
               <div className="p-4 border-b flex items-center justify-between">
                 <div className="font-medium">Activity</div>
                 <div className="text-sm text-muted-foreground">Time</div>
@@ -142,9 +142,9 @@ const Index = () => {
         </div>
       </main>
       
-      <footer className="bg-white border-t py-6">
+      <footer className="bg-background border-t py-6">
         <div className="container text-center text-sm text-muted-foreground">
-          QA Wizard &copy; {new Date().getFullYear()} - AI-powered Quality Engineering Platform
+          AIQE &copy; {new Date().getFullYear()} - AI-powered Quality Engineering Platform
         </div>
       </footer>
     </div>

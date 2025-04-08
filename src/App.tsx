@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import AITestExecution from "./components/AITestExecution";
@@ -15,68 +16,75 @@ import Navbar from "./components/Navbar";
 const queryClient = new QueryClient();
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => (
-  <div className="min-h-screen flex flex-col bg-slate-50">
+  <div className="min-h-screen flex flex-col bg-background">
     <Navbar />
     <main className="flex-1">
       <div className="container py-8">
         {children}
       </div>
     </main>
-    <footer className="bg-white border-t py-6">
+    <footer className="bg-background border-t py-6">
       <div className="container text-center text-sm text-muted-foreground">
-        QA Wizard &copy; {new Date().getFullYear()} - AI-powered Quality Engineering Platform
+        AIQE &copy; {new Date().getFullYear()} - AI-powered Quality Engineering Platform
       </div>
     </footer>
   </div>
 );
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route 
-            path="/ai-test-execution" 
-            element={
-              <AppLayout>
-                <h1 className="text-2xl font-bold mb-6">AI Test Execution</h1>
-                <AITestExecution />
-              </AppLayout>
-            } 
-          />
-          <Route 
-            path="/requirements" 
-            element={
-              <AppLayout>
-                <div className="space-y-10">
-                  <div>
-                    <h1 className="text-2xl font-bold mb-6">Requirement Analysis</h1>
-                    <RequirementAnalysis />
+const App = () => {
+  // Update document title
+  useEffect(() => {
+    document.title = 'AIQE - AI Quality Engineering';
+  }, []);
+  
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route 
+              path="/ai-test-execution" 
+              element={
+                <AppLayout>
+                  <h1 className="text-2xl font-bold mb-6">AI Test Execution</h1>
+                  <AITestExecution />
+                </AppLayout>
+              } 
+            />
+            <Route 
+              path="/requirements" 
+              element={
+                <AppLayout>
+                  <div className="space-y-10">
+                    <div>
+                      <h1 className="text-2xl font-bold mb-6">Requirement Analysis</h1>
+                      <RequirementAnalysis />
+                    </div>
+                    <div>
+                      <h1 className="text-2xl font-bold mb-6">Test Case Generation</h1>
+                      <TestCaseGeneration />
+                    </div>
                   </div>
-                  <div>
-                    <h1 className="text-2xl font-bold mb-6">Test Case Generation</h1>
-                    <TestCaseGeneration />
-                  </div>
-                </div>
-              </AppLayout>
-            } 
-          />
-          <Route 
-            path="/test-automation" 
-            element={
-              <AppLayout>
-                <TestAutomationHub />
-              </AppLayout>
-            } 
-          />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+                </AppLayout>
+              } 
+            />
+            <Route 
+              path="/test-automation" 
+              element={
+                <AppLayout>
+                  <TestAutomationHub />
+                </AppLayout>
+              } 
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
