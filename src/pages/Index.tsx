@@ -26,17 +26,6 @@ const Index = () => {
             </p>
             
             <QEAnimation />
-            
-            <div className="flex flex-wrap gap-4 justify-center mt-6 animate-fade-in" style={{animationDelay: "0.3s"}}>
-              <Button size="lg" className="gap-2" asChild>
-                <Link to="/dashboard">
-                  <Gauge className="h-4 w-4" /> Go to Dashboard
-                </Link>
-              </Button>
-              <Button variant="outline" size="lg" className="gap-2">
-                <FileText className="h-4 w-4" /> Documentation
-              </Button>
-            </div>
           </div>
           
           <div className="mb-12">
@@ -119,7 +108,7 @@ const Index = () => {
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-1 gap-8 mb-8">
             <div className="bg-card rounded-lg border p-6 shadow-sm">
               <h3 className="text-xl font-semibold mb-4 flex items-center">
                 <Cpu className="mr-2 h-5 w-5 text-qa-blue" />
@@ -151,40 +140,6 @@ const Index = () => {
                   <p>Generate comprehensive test reports with actionable insights</p>
                 </li>
               </ul>
-              <Button variant="outline" className="mt-4 w-full">Learn More</Button>
-            </div>
-            
-            <div className="bg-card rounded-lg border p-6 shadow-sm">
-              <h3 className="text-xl font-semibold mb-4">Get Started Today</h3>
-              <p className="text-sm text-muted-foreground mb-4">
-                Start using AIQE in three simple steps to transform your testing process.
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-qa-blue flex items-center justify-center text-primary-foreground font-medium">1</div>
-                  <div>
-                    <h4 className="font-medium">Create a project</h4>
-                    <p className="text-sm text-muted-foreground">Set up your first quality engineering project</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-qa-blue flex items-center justify-center text-primary-foreground font-medium">2</div>
-                  <div>
-                    <h4 className="font-medium">Connect your application</h4>
-                    <p className="text-sm text-muted-foreground">Link your web application or API for testing</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-qa-blue flex items-center justify-center text-primary-foreground font-medium">3</div>
-                  <div>
-                    <h4 className="font-medium">Start testing</h4>
-                    <p className="text-sm text-muted-foreground">Run your first AI-powered test and analyze results</p>
-                  </div>
-                </div>
-              </div>
-              <Button className="mt-4 w-full" asChild>
-                <Link to="/dashboard">Go to Dashboard</Link>
-              </Button>
             </div>
           </div>
         </div>
