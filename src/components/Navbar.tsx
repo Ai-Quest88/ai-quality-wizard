@@ -1,8 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Bug, FileText, Play, Brain, LayoutDashboard, Settings, Code } from 'lucide-react';
+import { Bug, FileText, Brain, LayoutDashboard, Settings, Code } from 'lucide-react';
 
 const Navbar = () => {
   return (
@@ -21,7 +20,7 @@ const Navbar = () => {
             <LayoutDashboard className="h-4 w-4" />
             <span>Dashboard</span>
           </Link>
-          <Link to="/requirements" className="flex items-center gap-1 font-medium text-foreground hover:text-qa-blue">
+          <Link to="/test-creation" className="flex items-center gap-1 font-medium text-foreground hover:text-qa-blue">
             <FileText className="h-4 w-4" />
             <span>Test Creation</span>
           </Link>

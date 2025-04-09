@@ -1,31 +1,25 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from '@/hooks/use-toast';
-import { Brain, Globe, PlayCircle, RefreshCw, CheckCircle, XCircle, AlertTriangle, Eye, Image, Code } from 'lucide-react';
+import { Brain, PlayCircle, RefreshCw, CheckCircle, XCircle, AlertTriangle, Eye, Image, Code } from 'lucide-react';
 
 const AITestExecution = () => {
-  const [url, setUrl] = useState('');
-  const [prompt, setPrompt] = useState('');
-  const [testMode, setTestMode] = useState('visual');
+  const [testDescription, setTestDescription] = useState('');
   const [isRunning, setIsRunning] = useState(false);
   const [progress, setProgress] = useState(0);
   const [testResults, setTestResults] = useState<any | null>(null);
   const [activeTab, setActiveTab] = useState("results");
   const { toast } = useToast();
 
-  const runTest = async () => {
-    if (!url) {
+  const executeTest = async () => {
+    if (!testDescription) {
       toast({
-        title: "URL Required",
-        description: "Please enter a website URL to test",
+        title: "Description Required",
+        description: "Please enter a test description",
         variant: "destructive",
       });
       return;
@@ -53,51 +47,45 @@ const AITestExecution = () => {
       
       // Mock response data
       const mockResults = {
-        url: url,
         timestamp: new Date().toISOString(),
-        mode: testMode,
         status: 'completed',
         summary: {
-          critical: testMode === 'functional' ? 2 : 1,
-          warnings: testMode === 'accessibility' ? 5 : 3,
-          passed: testMode === 'visual' ? 12 : 8,
+          critical: 1,
+          warnings: 3,
+          passed: 10,
         },
         details: [
           {
             id: 'test-1',
-            name: testMode === 'visual' ? 'Visual elements render correctly' : 
-                  testMode === 'functional' ? 'Form submission works' : 'All images have alt text',
+            name: 'Visual elements render correctly',
             status: 'passed',
             description: 'The test passed successfully',
             evidence: 'screenshot1.png'
           },
           {
             id: 'test-2',
-            name: testMode === 'visual' ? 'Responsive design breakpoints' : 
-                  testMode === 'functional' ? 'Navigation links work' : 'Color contrast is sufficient',
-            status: testMode === 'accessibility' ? 'warning' : 'passed',
-            description: testMode === 'accessibility' ? 'Some elements have contrast issues' : 'The test passed with high confidence',
+            name: 'Responsive design breakpoints',
+            status: 'passed',
+            description: 'The test passed with high confidence',
             evidence: 'screenshot2.png'
           },
           {
             id: 'test-3',
-            name: testMode === 'visual' ? 'Color scheme consistency' : 
-                  testMode === 'functional' ? 'Login functionality' : 'Keyboard navigation',
-            status: testMode === 'functional' ? 'failed' : 'warning',
-            description: testMode === 'functional' ? 'Login form submission failed' : 'Minor issues detected',
+            name: 'Form submission functionality',
+            status: 'failed',
+            description: 'Form submission failed',
             evidence: 'screenshot3.png'
           }
         ],
         browserLog: [
           { level: 'info', message: 'Page loaded successfully' },
-          { level: 'info', message: `Running ${testMode} tests...` },
-          { level: testMode === 'functional' ? 'error' : 'warning', message: testMode === 'functional' ? 'Failed to submit form' : 'Minor layout issue detected' }
+          { level: 'info', message: 'Running tests...' },
+          { level: 'error', message: 'Failed to submit form' }
         ],
-        // Browser-use simulation data
         browserCapture: {
           screenshot: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=",
           actions: [
-            { type: 'navigate', target: url, timestamp: Date.now() - 5000 },
+            { type: 'navigate', target: 'https://example.com', timestamp: Date.now() - 5000 },
             { type: 'click', selector: 'button', timestamp: Date.now() - 3000 },
             { type: 'type', selector: 'input', value: 'test input', timestamp: Date.now() - 2000 },
             { type: 'scroll', position: { x: 0, y: 500 }, timestamp: Date.now() - 1000 }
@@ -105,7 +93,7 @@ const AITestExecution = () => {
           elements: {
             detected: 32,
             interactive: 12,
-            issues: testMode === 'accessibility' ? 5 : (testMode === 'functional' ? 2 : 1)
+            issues: 2
           }
         }
       };
@@ -116,7 +104,7 @@ const AITestExecution = () => {
       
       toast({
         title: "Test Completed",
-        description: `AI ${testMode} test completed successfully`,
+        description: "AI test execution completed successfully",
       });
     }, 5000);
   };
@@ -130,73 +118,38 @@ const AITestExecution = () => {
             AI Test Execution
           </CardTitle>
           <CardDescription>
-            Use AI agents to automatically test web applications without writing code
+            Use AI agents to automatically test web applications based on your description
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="col-span-2">
-              <Label htmlFor="url">Website URL</Label>
-              <div className="flex mt-1.5 gap-2">
-                <div className="relative flex-grow">
-                  <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                  <Input 
-                    id="url"
-                    placeholder="https://example.com" 
-                    className="pl-9"
-                    value={url}
-                    onChange={(e) => setUrl(e.target.value)}
-                    disabled={isRunning}
-                  />
-                </div>
-                <Button 
-                  onClick={runTest} 
-                  disabled={isRunning || !url}
-                  className="flex items-center gap-2"
-                >
-                  {isRunning ? (
-                    <>
-                      <RefreshCw className="h-4 w-4 animate-spin" />
-                      Running...
-                    </>
-                  ) : (
-                    <>
-                      <PlayCircle className="h-4 w-4" />
-                      Run Test
-                    </>
-                  )}
-                </Button>
-              </div>
-            </div>
-            <div>
-              <Label htmlFor="test-mode">Test Mode</Label>
-              <Select 
-                disabled={isRunning} 
-                value={testMode} 
-                onValueChange={setTestMode}
-              >
-                <SelectTrigger id="test-mode" className="w-full mt-1.5">
-                  <SelectValue placeholder="Select test mode" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="visual">Visual Testing</SelectItem>
-                  <SelectItem value="functional">Functional Testing</SelectItem>
-                  <SelectItem value="accessibility">Accessibility Testing</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-          
           <div className="space-y-2">
-            <Label htmlFor="prompt">Test Instructions (Optional)</Label>
             <Textarea 
-              id="prompt"
-              placeholder="Describe specific test scenarios or provide instructions for the AI (e.g., 'Test the login form with invalid credentials')"
-              className="min-h-[80px]"
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
+              placeholder="Describe what you want to test (e.g., 'Test the login form with invalid credentials')"
+              className="min-h-[150px]"
+              value={testDescription}
+              onChange={(e) => setTestDescription(e.target.value)}
               disabled={isRunning}
             />
+          </div>
+          
+          <div className="flex justify-end">
+            <Button 
+              onClick={executeTest} 
+              disabled={isRunning || !testDescription}
+              className="flex items-center gap-2"
+            >
+              {isRunning ? (
+                <>
+                  <RefreshCw className="h-4 w-4 animate-spin" />
+                  Running...
+                </>
+              ) : (
+                <>
+                  <PlayCircle className="h-4 w-4" />
+                  Execute Test
+                </>
+              )}
+            </Button>
           </div>
           
           {isRunning && (

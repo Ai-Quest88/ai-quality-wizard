@@ -10,10 +10,9 @@ import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import AITestExecution from "./components/AITestExecution";
-import RequirementAnalysis from "./components/RequirementAnalysis";
-import TestCaseGeneration from "./components/TestCaseGeneration";
 import TestAutomationHub from "./components/TestAutomationHub";
 import Navbar from "./components/Navbar";
+import TestCreation from "./pages/TestCreation";
 
 const queryClient = new QueryClient();
 
@@ -73,19 +72,10 @@ const App = () => {
               } 
             />
             <Route 
-              path="/requirements" 
+              path="/test-creation" 
               element={
                 <AppLayout>
-                  <div className="space-y-10">
-                    <div>
-                      <h1 className="text-2xl font-bold mb-6">Requirement Analysis</h1>
-                      <RequirementAnalysis />
-                    </div>
-                    <div>
-                      <h1 className="text-2xl font-bold mb-6">Test Case Generation</h1>
-                      <TestCaseGeneration />
-                    </div>
-                  </div>
+                  <TestCreation />
                 </AppLayout>
               } 
             />
@@ -93,6 +83,7 @@ const App = () => {
               path="/test-automation" 
               element={
                 <AppLayout>
+                  <h1 className="text-2xl font-bold mb-6">Test Automation</h1>
                   <TestAutomationHub />
                 </AppLayout>
               } 
