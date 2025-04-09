@@ -8,19 +8,19 @@ const Dashboard = () => {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold mb-2">Dashboard</h1>
-        <p className="text-muted-foreground">Overview of your quality engineering metrics</p>
+        <h1 className="text-2xl font-bold mb-2">Quality Engineering Dashboard</h1>
+        <p className="text-muted-foreground">Comprehensive overview of your quality engineering metrics</p>
       </div>
       
       <DashboardMetrics />
       
       <Tabs defaultValue="recent">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Activity Overview</h2>
+          <h2 className="text-xl font-semibold">Testing Activity</h2>
           <TabsList>
-            <TabsTrigger value="recent">Recent Activity</TabsTrigger>
+            <TabsTrigger value="recent">Recent Tests</TabsTrigger>
             <TabsTrigger value="failures">Failures</TabsTrigger>
-            <TabsTrigger value="trends">Trends</TabsTrigger>
+            <TabsTrigger value="trends">Quality Trends</TabsTrigger>
           </TabsList>
         </div>
         

@@ -3,7 +3,7 @@ import React from 'react';
 import Navbar from '@/components/Navbar';
 import QEAnimation from '@/components/QEAnimation';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Plus, Brain, CheckSquare, FileText, Star, Shield, Bot, Cpu, Gauge } from 'lucide-react';
+import { ArrowRight, Plus, Brain, CheckSquare, FileText, Code, Shield, Bot, Cpu, Gauge, LayoutDashboard, Settings } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
 
@@ -30,29 +30,29 @@ const Index = () => {
           
           <div className="mb-12">
             <h2 className="text-xl font-semibold mb-6 flex items-center">
-              <Star className="mr-2 h-5 w-5 text-qa-blue" />
+              <Shield className="mr-2 h-5 w-5 text-qa-blue" />
               Key Features
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
               <Card className="hover:shadow-lg transition-all duration-300 hover:border-qa-blue/50">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Brain className="h-5 w-5 text-qa-blue" />
-                    AI Test Execution
+                    <LayoutDashboard className="h-5 w-5 text-qa-blue" />
+                    Dashboard
                   </CardTitle>
                   <CardDescription>
-                    Run intelligent tests on any website using AI
+                    Quality engineering metrics
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    Execute AI-powered tests on web applications to identify visual, functional, and accessibility issues without writing any code.
+                    View detailed quality metrics, trends, and insights to make data-driven decisions about your testing strategy.
                   </p>
                 </CardContent>
                 <CardFooter className="flex justify-between border-t pt-4">
                   <Button variant="outline" size="sm" asChild>
-                    <Link to="/ai-test-execution" className="flex items-center gap-2">
-                      Try Now <ArrowRight className="h-4 w-4" />
+                    <Link to="/dashboard" className="flex items-center gap-2">
+                      View <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
                 </CardFooter>
@@ -62,21 +62,21 @@ const Index = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <FileText className="h-5 w-5 text-qa-blue" />
-                    Requirement Analysis
+                    Test Creation
                   </CardTitle>
                   <CardDescription>
-                    Analyze requirements for testability
+                    Create tests from requirements
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    Evaluate the quality of requirements, identify missing information, and get suggestions for improvement to enhance testability.
+                    Automatically generate comprehensive test cases from your requirements and user stories using AI.
                   </p>
                 </CardContent>
                 <CardFooter className="flex justify-between border-t pt-4">
                   <Button variant="outline" size="sm" asChild>
                     <Link to="/requirements" className="flex items-center gap-2">
-                      Analyze <ArrowRight className="h-4 w-4" />
+                      Create <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
                 </CardFooter>
@@ -85,22 +85,70 @@ const Index = () => {
               <Card className="hover:shadow-lg transition-all duration-300 hover:border-qa-blue/50">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <CheckSquare className="h-5 w-5 text-qa-blue" />
-                    Test Case Generation
+                    <Brain className="h-5 w-5 text-qa-blue" />
+                    Test Execution
                   </CardTitle>
                   <CardDescription>
-                    Generate test cases from requirements
+                    Execute tests with AI agents
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    Automatically generate comprehensive test cases from your requirements and user stories using AI, saving time and increasing coverage.
+                    Run intelligent tests on applications using AI agents that can interact with web interfaces like a real user.
                   </p>
                 </CardContent>
                 <CardFooter className="flex justify-between border-t pt-4">
                   <Button variant="outline" size="sm" asChild>
-                    <Link to="/requirements" className="flex items-center gap-2">
-                      Generate <ArrowRight className="h-4 w-4" />
+                    <Link to="/ai-test-execution" className="flex items-center gap-2">
+                      Execute <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              <Card className="hover:shadow-lg transition-all duration-300 hover:border-qa-blue/50">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Code className="h-5 w-5 text-qa-blue" />
+                    Test Automation
+                  </CardTitle>
+                  <CardDescription>
+                    Generate automated test code
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    Transform manual test cases into automated test scripts with AI-powered code generation.
+                  </p>
+                </CardContent>
+                <CardFooter className="flex justify-between border-t pt-4">
+                  <Button variant="outline" size="sm" asChild>
+                    <Link to="/test-automation" className="flex items-center gap-2">
+                      Automate <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              <Card className="hover:shadow-lg transition-all duration-300 hover:border-qa-blue/50">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Settings className="h-5 w-5 text-qa-blue" />
+                    Settings
+                  </CardTitle>
+                  <CardDescription>
+                    Configure integrations
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    Connect to Git repositories and Jira projects to streamline your quality engineering workflow.
+                  </p>
+                </CardContent>
+                <CardFooter className="flex justify-between border-t pt-4">
+                  <Button variant="outline" size="sm" asChild>
+                    <Link to="/settings" className="flex items-center gap-2">
+                      Configure <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
                 </CardFooter>
