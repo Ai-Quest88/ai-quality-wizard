@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
@@ -13,6 +14,7 @@ const AITestExecution = () => {
   const [progress, setProgress] = useState(0);
   const [testResults, setTestResults] = useState<any | null>(null);
   const [activeTab, setActiveTab] = useState("results");
+  const [testMode, setTestMode] = useState('functional'); // Added this line to define testMode
   const { toast } = useToast();
 
   const executeTest = async () => {
