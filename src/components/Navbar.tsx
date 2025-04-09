@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Bug, Database, FileText, Play, Brain, LayoutDashboard } from 'lucide-react';
+import { Bug, Database, FileText, Play, Brain, LayoutDashboard, Settings } from 'lucide-react';
 
 const Navbar = () => {
   return (
@@ -33,11 +33,14 @@ const Navbar = () => {
             <FileText className="h-4 w-4" />
             <span>Requirements</span>
           </Link>
+          <Link to="/settings" className="flex items-center gap-1 font-medium text-foreground hover:text-qa-blue">
+            <Settings className="h-4 w-4" />
+            <span>Settings</span>
+          </Link>
         </nav>
         
         <div className="ml-auto flex items-center gap-4">
           <Button variant="outline" size="sm">Docs</Button>
-          <Button size="sm">New Test</Button>
         </div>
       </div>
     </header>

@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import AITestExecution from "./components/AITestExecution";
 import RequirementAnalysis from "./components/RequirementAnalysis";
@@ -51,6 +52,14 @@ const App = () => {
               element={
                 <AppLayout>
                   <Dashboard />
+                </AppLayout>
+              } 
+            />
+            <Route 
+              path="/settings" 
+              element={
+                <AppLayout>
+                  <Settings />
                 </AppLayout>
               } 
             />
