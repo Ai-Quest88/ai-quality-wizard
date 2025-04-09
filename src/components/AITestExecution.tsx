@@ -1,259 +1,340 @@
 
 import React, { useState } from 'react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
+import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Progress } from "@/components/ui/progress";
-import { Brain, Play, Code, CheckCircle2, XCircle, AlertCircle, RefreshCw, Link } from 'lucide-react';
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from '@/hooks/use-toast';
+import { Brain, Globe, PlayCircle, RefreshCw, CheckCircle, XCircle, AlertTriangle, Eye, Image, Code } from 'lucide-react';
 
 const AITestExecution = () => {
-  const [testUrl, setTestUrl] = useState('');
+  const [url, setUrl] = useState('');
+  const [prompt, setPrompt] = useState('');
+  const [testMode, setTestMode] = useState('visual');
   const [isRunning, setIsRunning] = useState(false);
-  const [results, setResults] = useState<null | {
-    status: 'success' | 'error' | 'warning';
-    elements: number;
-    screenshot: string;
-    logs: string[];
-    performanceMetrics: {
-      loadTime: string;
-      firstContentfulPaint: string;
-      largestContentfulPaint: string;
-      domInteractive: string;
-    };
-  }>(null);
-  
+  const [progress, setProgress] = useState(0);
+  const [testResults, setTestResults] = useState<any | null>(null);
+  const [activeTab, setActiveTab] = useState("results");
   const { toast } = useToast();
 
-  const runTest = () => {
-    if (!testUrl) {
+  const runTest = async () => {
+    if (!url) {
       toast({
         title: "URL Required",
-        description: "Please enter a valid URL to test",
-        variant: "destructive"
+        description: "Please enter a website URL to test",
+        variant: "destructive",
       });
       return;
     }
 
     setIsRunning(true);
-    
-    // Simulate API call to HuggingFace or other AI service
+    setProgress(0);
+    setTestResults(null);
+
+    // Simulate progress updates
+    const progressInterval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 95) {
+          clearInterval(progressInterval);
+          return prev;
+        }
+        return prev + Math.floor(Math.random() * 10);
+      });
+    }, 800);
+
+    // Simulate test execution
     setTimeout(() => {
-      setIsRunning(false);
+      clearInterval(progressInterval);
+      setProgress(100);
       
       // Mock response data
-      setResults({
-        status: 'success',
-        elements: 42,
-        screenshot: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f1f5f9'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' text-anchor='middle' fill='%2394a3b8'%3EWebsite Screenshot%3C/text%3E%3C/svg%3E",
-        logs: [
-          "Loading URL: " + testUrl,
-          "Page loaded successfully",
-          "Found 42 interactive elements",
-          "All critical elements are accessible",
-          "No console errors detected",
-          "Performance metrics collected"
+      const mockResults = {
+        url: url,
+        timestamp: new Date().toISOString(),
+        mode: testMode,
+        status: 'completed',
+        summary: {
+          critical: testMode === 'functional' ? 2 : 1,
+          warnings: testMode === 'accessibility' ? 5 : 3,
+          passed: testMode === 'visual' ? 12 : 8,
+        },
+        details: [
+          {
+            id: 'test-1',
+            name: testMode === 'visual' ? 'Visual elements render correctly' : 
+                  testMode === 'functional' ? 'Form submission works' : 'All images have alt text',
+            status: 'passed',
+            description: 'The test passed successfully',
+            evidence: 'screenshot1.png'
+          },
+          {
+            id: 'test-2',
+            name: testMode === 'visual' ? 'Responsive design breakpoints' : 
+                  testMode === 'functional' ? 'Navigation links work' : 'Color contrast is sufficient',
+            status: testMode === 'accessibility' ? 'warning' : 'passed',
+            description: testMode === 'accessibility' ? 'Some elements have contrast issues' : 'The test passed with high confidence',
+            evidence: 'screenshot2.png'
+          },
+          {
+            id: 'test-3',
+            name: testMode === 'visual' ? 'Color scheme consistency' : 
+                  testMode === 'functional' ? 'Login functionality' : 'Keyboard navigation',
+            status: testMode === 'functional' ? 'failed' : 'warning',
+            description: testMode === 'functional' ? 'Login form submission failed' : 'Minor issues detected',
+            evidence: 'screenshot3.png'
+          }
         ],
-        performanceMetrics: {
-          loadTime: "1.2s",
-          firstContentfulPaint: "0.8s",
-          largestContentfulPaint: "1.5s",
-          domInteractive: "0.7s"
+        browserLog: [
+          { level: 'info', message: 'Page loaded successfully' },
+          { level: 'info', message: `Running ${testMode} tests...` },
+          { level: testMode === 'functional' ? 'error' : 'warning', message: testMode === 'functional' ? 'Failed to submit form' : 'Minor layout issue detected' }
+        ],
+        // Browser-use simulation data
+        browserCapture: {
+          screenshot: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=",
+          actions: [
+            { type: 'navigate', target: url, timestamp: Date.now() - 5000 },
+            { type: 'click', selector: 'button', timestamp: Date.now() - 3000 },
+            { type: 'type', selector: 'input', value: 'test input', timestamp: Date.now() - 2000 },
+            { type: 'scroll', position: { x: 0, y: 500 }, timestamp: Date.now() - 1000 }
+          ],
+          elements: {
+            detected: 32,
+            interactive: 12,
+            issues: testMode === 'accessibility' ? 5 : (testMode === 'functional' ? 2 : 1)
+          }
         }
-      });
+      };
+      
+      setTestResults(mockResults);
+      setIsRunning(false);
+      setActiveTab("results");
       
       toast({
-        title: "Test completed",
-        description: "AI test execution completed successfully",
+        title: "Test Completed",
+        description: `AI ${testMode} test completed successfully`,
       });
-    }, 3000);
+    }, 5000);
   };
 
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-3">
           <CardTitle className="flex items-center gap-2">
             <Brain className="h-5 w-5 text-qa-blue" />
             AI Test Execution
           </CardTitle>
           <CardDescription>
-            Execute AI-powered tests on any web application
+            Use AI agents to automatically test web applications without writing code
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="flex gap-4">
-            <div className="flex-1 flex items-center border rounded-md overflow-hidden bg-white">
-              <Link className="h-4 w-4 mx-3 text-muted-foreground" />
-              <input
-                type="url"
-                placeholder="Enter URL to test (e.g., https://example.com)"
-                className="flex-1 py-3 px-2 focus:outline-none text-sm"
-                value={testUrl}
-                onChange={(e) => setTestUrl(e.target.value)}
-              />
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="col-span-2">
+              <Label htmlFor="url">Website URL</Label>
+              <div className="flex mt-1.5 gap-2">
+                <div className="relative flex-grow">
+                  <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                  <Input 
+                    id="url"
+                    placeholder="https://example.com" 
+                    className="pl-9"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    disabled={isRunning}
+                  />
+                </div>
+                <Button 
+                  onClick={runTest} 
+                  disabled={isRunning || !url}
+                  className="flex items-center gap-2"
+                >
+                  {isRunning ? (
+                    <>
+                      <RefreshCw className="h-4 w-4 animate-spin" />
+                      Running...
+                    </>
+                  ) : (
+                    <>
+                      <PlayCircle className="h-4 w-4" />
+                      Run Test
+                    </>
+                  )}
+                </Button>
+              </div>
             </div>
-            <Button 
-              onClick={runTest} 
-              className="flex items-center gap-2"
-              disabled={isRunning}
-            >
-              {isRunning ? (
-                <>
-                  <RefreshCw className="h-4 w-4 animate-spin" />
-                  Running...
-                </>
-              ) : (
-                <>
-                  <Play className="h-4 w-4" />
-                  Run Test
-                </>
-              )}
-            </Button>
+            <div>
+              <Label htmlFor="test-mode">Test Mode</Label>
+              <Select 
+                disabled={isRunning} 
+                value={testMode} 
+                onValueChange={setTestMode}
+              >
+                <SelectTrigger id="test-mode" className="w-full mt-1.5">
+                  <SelectValue placeholder="Select test mode" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="visual">Visual Testing</SelectItem>
+                  <SelectItem value="functional">Functional Testing</SelectItem>
+                  <SelectItem value="accessibility">Accessibility Testing</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="prompt">Test Instructions (Optional)</Label>
+            <Textarea 
+              id="prompt"
+              placeholder="Describe specific test scenarios or provide instructions for the AI (e.g., 'Test the login form with invalid credentials')"
+              className="min-h-[80px]"
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              disabled={isRunning}
+            />
+          </div>
+          
+          {isRunning && (
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-sm font-medium">Running tests...</span>
+                <span className="text-sm">{progress}%</span>
+              </div>
+              <Progress value={progress} className="w-full" />
+            </div>
+          )}
         </CardContent>
       </Card>
       
-      {results && (
+      {testResults && (
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center justify-between">
-              <span>Test Results</span>
-              <div className="flex items-center">
-                {results.status === 'success' && <CheckCircle2 className="h-5 w-5 text-qa-success" />}
-                {results.status === 'error' && <XCircle className="h-5 w-5 text-qa-error" />}
-                {results.status === 'warning' && <AlertCircle className="h-5 w-5 text-qa-warning" />}
+          <CardHeader className="pb-3">
+            <div className="flex justify-between items-start">
+              <div>
+                <CardTitle>Test Results</CardTitle>
+                <CardDescription>
+                  {new Date(testResults.timestamp).toLocaleString()} • {testResults.url}
+                </CardDescription>
               </div>
-            </CardTitle>
-            <CardDescription>
-              {testUrl}
-            </CardDescription>
+              <div className="flex gap-2 items-center">
+                {testResults.summary.critical > 0 ? (
+                  <div className="flex items-center text-xs text-qa-error">
+                    <XCircle className="h-4 w-4 mr-1" /> {testResults.summary.critical} Critical
+                  </div>
+                ) : null}
+                {testResults.summary.warnings > 0 ? (
+                  <div className="flex items-center text-xs text-qa-warning ml-2">
+                    <AlertTriangle className="h-4 w-4 mr-1" /> {testResults.summary.warnings} Warnings
+                  </div>
+                ) : null}
+                <div className="flex items-center text-xs text-qa-success ml-2">
+                  <CheckCircle className="h-4 w-4 mr-1" /> {testResults.summary.passed} Passed
+                </div>
+              </div>
+            </div>
+            <Tabs defaultValue="results" value={activeTab} onValueChange={setActiveTab} className="mt-2">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="results">Results</TabsTrigger>
+                <TabsTrigger value="browser">Browser Interaction</TabsTrigger>
+                <TabsTrigger value="logs">Console Logs</TabsTrigger>
+              </TabsList>
+            </Tabs>
           </CardHeader>
           <CardContent>
-            <Tabs defaultValue="overview">
-              <TabsList className="mb-4">
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="logs">Logs</TabsTrigger>
-                <TabsTrigger value="performance">Performance</TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="overview" className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <div className="mb-4">
-                      <h4 className="text-sm font-medium mb-2">Screenshot</h4>
-                      <div className="border rounded-md overflow-hidden">
-                        <img 
-                          src={results.screenshot} 
-                          alt="Website screenshot" 
-                          className="w-full h-auto" 
-                        />
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <h4 className="text-sm font-medium mb-2">Elements Analysis</h4>
-                      <div className="qa-code">
-                        Found {results.elements} interactive elements
-                        <br />
-                        All critical elements are accessible
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <h4 className="text-sm font-medium mb-2">Key Metrics</h4>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm">Load Time</span>
-                        <span className="font-medium">{results.performanceMetrics.loadTime}</span>
-                      </div>
+            <TabsContent value="results" className="space-y-4">
+              {testResults.details.map((test) => (
+                <div key={test.id} className="border rounded-lg p-4">
+                  <div className="flex justify-between items-start">
+                    <div className="flex items-start gap-2">
+                      {test.status === 'passed' && (
+                        <CheckCircle className="h-5 w-5 text-qa-success mt-0.5" />
+                      )}
+                      {test.status === 'warning' && (
+                        <AlertTriangle className="h-5 w-5 text-qa-warning mt-0.5" />
+                      )}
+                      {test.status === 'failed' && (
+                        <XCircle className="h-5 w-5 text-qa-error mt-0.5" />
+                      )}
                       <div>
-                        <div className="flex items-center justify-between text-sm mb-1">
-                          <span>First Contentful Paint</span>
-                          <span>{results.performanceMetrics.firstContentfulPaint}</span>
-                        </div>
-                        <Progress value={80} className="h-1" />
-                      </div>
-                      
-                      <div>
-                        <div className="flex items-center justify-between text-sm mb-1">
-                          <span>Largest Contentful Paint</span>
-                          <span>{results.performanceMetrics.largestContentfulPaint}</span>
-                        </div>
-                        <Progress value={70} className="h-1" />
-                      </div>
-                      
-                      <div>
-                        <div className="flex items-center justify-between text-sm mb-1">
-                          <span>DOM Interactive</span>
-                          <span>{results.performanceMetrics.domInteractive}</span>
-                        </div>
-                        <Progress value={90} className="h-1" />
+                        <h4 className="font-medium text-base">{test.name}</h4>
+                        <p className="text-sm text-muted-foreground mt-1">{test.description}</p>
                       </div>
                     </div>
-                    
-                    <div className="mt-6">
-                      <h4 className="text-sm font-medium mb-2">Accessibility</h4>
-                      <div className="flex items-center">
-                        <div className="w-10 h-10 rounded-full bg-qa-success flex items-center justify-center text-white mr-3">
-                          <CheckCircle2 className="h-5 w-5" />
-                        </div>
-                        <div>
-                          <div className="font-medium">WCAG Compliant</div>
-                          <div className="text-sm text-muted-foreground">All critical tests passing</div>
-                        </div>
-                      </div>
-                    </div>
+                    <Button variant="outline" size="sm">
+                      <Eye className="h-3.5 w-3.5 mr-1" />
+                      View Details
+                    </Button>
                   </div>
                 </div>
-              </TabsContent>
-              
-              <TabsContent value="logs" className="space-y-2">
-                <div className="bg-slate-50 border rounded-md p-4 font-mono text-sm">
-                  {results.logs.map((log, index) => (
-                    <div key={index} className="py-1">
-                      <span className="text-slate-500">[{new Date().toISOString().split('T')[1].split('.')[0]}]</span> {log}
+              ))}
+            </TabsContent>
+            <TabsContent value="browser" className="space-y-4">
+              <div className="border rounded-lg p-4">
+                <h4 className="font-medium mb-4">Browser Capture</h4>
+                <div className="aspect-video bg-slate-100 rounded-md mb-4 flex items-center justify-center">
+                  <Image className="h-12 w-12 text-muted-foreground opacity-50" />
+                </div>
+                <h4 className="font-medium mb-2 text-sm">Browser Actions</h4>
+                <div className="space-y-2">
+                  {testResults.browserCapture.actions.map((action, i) => (
+                    <div key={i} className="text-xs flex items-center border-l-2 border-qa-blue pl-2 py-1">
+                      <span className="font-mono bg-slate-100 px-1.5 py-0.5 rounded mr-2">{action.type}</span>
+                      <span className="text-muted-foreground">
+                        {action.selector && `${action.selector} `}
+                        {action.value && `"${action.value}" `}
+                        {action.position && `(${action.position.x}, ${action.position.y})`}
+                      </span>
                     </div>
                   ))}
                 </div>
-              </TabsContent>
-              
-              <TabsContent value="performance" className="space-y-4">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {Object.entries(results.performanceMetrics).map(([key, value]) => (
-                    <Card key={key} className="overflow-hidden">
-                      <CardHeader className="py-2">
-                        <CardTitle className="text-sm">{key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())}</CardTitle>
-                      </CardHeader>
-                      <CardContent className="py-2">
-                        <div className="text-2xl font-bold">{value}</div>
-                      </CardContent>
-                    </Card>
-                  ))}
+                <div className="mt-4 pt-2 border-t grid grid-cols-3 gap-4">
+                  <div className="text-center">
+                    <div className="text-xl font-semibold">{testResults.browserCapture.elements.detected}</div>
+                    <div className="text-xs text-muted-foreground">Elements Detected</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xl font-semibold">{testResults.browserCapture.elements.interactive}</div>
+                    <div className="text-xs text-muted-foreground">Interactive Elements</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xl font-semibold">{testResults.browserCapture.elements.issues}</div>
+                    <div className="text-xs text-muted-foreground">Issues Found</div>
+                  </div>
                 </div>
-                
-                <Card>
-                  <CardHeader className="py-3">
-                    <CardTitle className="text-sm">Performance Recommendation</CardTitle>
-                  </CardHeader>
-                  <CardContent className="py-2">
-                    <div className="text-sm">
-                      Overall performance is good. Consider optimizing the Largest Contentful Paint by preloading critical resources and optimizing image delivery.
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            </Tabs>
+              </div>
+            </TabsContent>
+            <TabsContent value="logs">
+              <div className="bg-slate-50 dark:bg-slate-900 rounded-md p-4 font-mono text-sm">
+                {testResults.browserLog.map((log, i) => (
+                  <div 
+                    key={i} 
+                    className={`mb-1 ${
+                      log.level === 'error' ? 'text-qa-error' : 
+                      log.level === 'warning' ? 'text-qa-warning' : 
+                      'text-slate-600 dark:text-slate-400'
+                    }`}
+                  >
+                    <span className="opacity-60">[{log.level}]</span> {log.message}
+                  </div>
+                ))}
+              </div>
+            </TabsContent>
           </CardContent>
-          <CardFooter className="border-t pt-4 flex justify-between">
-            <div className="text-sm text-muted-foreground">Test executed at {new Date().toLocaleTimeString()}</div>
-            <div className="flex gap-2">
-              <Button variant="outline" size="sm">Export Results</Button>
-              <Button size="sm" onClick={runTest}>Run Again</Button>
+          <CardFooter className="flex justify-between border-t pt-4">
+            <div className="text-sm text-muted-foreground">
+              {testMode === 'visual' ? 'Visual testing' : 
+               testMode === 'functional' ? 'Functional testing' : 
+               'Accessibility testing'} using AI browser agents
             </div>
+            <Button variant="outline" size="sm" className="flex items-center gap-2">
+              <Code className="h-4 w-4" />
+              Export Results
+            </Button>
           </CardFooter>
         </Card>
       )}
