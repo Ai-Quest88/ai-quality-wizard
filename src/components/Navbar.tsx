@@ -24,13 +24,13 @@ const Navbar = () => {
             <FileText className="h-4 w-4" />
             <span>Test Creation</span>
           </Link>
-          <Link to="/ai-test-execution" className="flex items-center gap-1 font-medium text-foreground hover:text-qa-blue">
-            <Brain className="h-4 w-4" />
-            <span>Test Execution</span>
-          </Link>
           <Link to="/test-automation" className="flex items-center gap-1 font-medium text-foreground hover:text-qa-blue">
             <Code className="h-4 w-4" />
             <span>Test Automation</span>
+          </Link>
+          <Link to="/ai-test-execution" className="flex items-center gap-1 font-medium text-foreground hover:text-qa-blue">
+            <Brain className="h-4 w-4" />
+            <span>Test Execution</span>
           </Link>
           <Link to="/settings" className="flex items-center gap-1 font-medium text-foreground hover:text-qa-blue">
             <Settings className="h-4 w-4" />
