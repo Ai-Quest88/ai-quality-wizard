@@ -1,22 +1,23 @@
-# Welcome to your Lovable project
 
-## Project info
+# AI Quality Engineering Platform
 
-**URL**: https://lovable.dev/projects/b815c02c-32a0-4913-9a7b-e4889e19fde1
+## Project Description
 
-## How can I edit this code?
+AIQE is an AI-powered Quality Engineering Platform designed to enhance your testing process with automated test execution, requirement analysis, and AI-assisted test case generation.
 
-There are several ways of editing your application.
+## Technologies Used
 
-**Use Lovable**
+This project is built with:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/b815c02c-32a0-4913-9a7b-e4889e19fde1) and start prompting.
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
-Changes made via Lovable will be committed automatically to this repo.
+## Local Development
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+To work locally using your own IDE, you can clone this repo and push changes.
 
 The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
@@ -36,38 +37,10 @@ npm i
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Deployment
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+This project can be deployed to your preferred hosting service. Configure your deployment settings based on your hosting provider's requirements.
 
-**Use GitHub Codespaces**
+## Custom Domain
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/b815c02c-32a0-4913-9a7b-e4889e19fde1) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes it is!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+To connect a custom domain, configure the DNS settings with your domain provider and update the deployment settings accordingly.
