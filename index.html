@@ -17,6 +17,55 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@aiqe" />
     <meta name="twitter:image" content="https://aiqe.dev/opengraph-image.png" />
+    <style>
+      /* Hide the Lovable button */
+      .lovable-button, 
+      [id*="lovable"], 
+      [class*="lovable"],
+      [id*="gpt-engineer"],
+      [class*="gpt-engineer"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+    </style>
+    <script>
+      // Remove any Lovable or GPT Engineer elements that might be injected
+      document.addEventListener('DOMContentLoaded', function() {
+        function removeElements() {
+          const selectors = [
+            '[id*="lovable"]', 
+            '[class*="lovable"]',
+            '[id*="gpt-engineer"]',
+            '[class*="gpt-engineer"]',
+            '.edit-with-lovable',
+            '#gpt-engineer-button'
+          ];
+          
+          selectors.forEach(selector => {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(el => el.parentNode.removeChild(el));
+          });
+        }
+        
+        // Run initially
+        removeElements();
+        
+        // Also run periodically to catch dynamically added elements
+        setInterval(removeElements, 1000);
+        
+        // Use MutationObserver to detect and remove new elements
+        const observer = new MutationObserver(function(mutations) {
+          removeElements();
+        });
+        
+        observer.observe(document.body, { 
+          childList: true, 
+          subtree: true 
+        });
+      });
+    </script>
   </head>
 
   <body>
