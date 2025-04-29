@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import QEAnimation from '@/components/QEAnimation';
@@ -85,30 +84,6 @@ const Index = () => {
               <Card className="hover:shadow-lg transition-all duration-300 hover:border-qa-blue/50">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Brain className="h-5 w-5 text-qa-blue" />
-                    Test Execution
-                  </CardTitle>
-                  <CardDescription>
-                    Execute tests with AI agents
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    Run intelligent tests on applications using AI agents that can interact with web interfaces like a real user.
-                  </p>
-                </CardContent>
-                <CardFooter className="flex justify-between border-t pt-4">
-                  <Button variant="outline" size="sm" asChild>
-                    <Link to="/ai-test-execution" className="flex items-center gap-2">
-                      Execute <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-              
-              <Card className="hover:shadow-lg transition-all duration-300 hover:border-qa-blue/50">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
                     <Code className="h-5 w-5 text-qa-blue" />
                     Test Automation
                   </CardTitle>
@@ -125,6 +100,30 @@ const Index = () => {
                   <Button variant="outline" size="sm" asChild>
                     <Link to="/test-automation" className="flex items-center gap-2">
                       Automate <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              <Card className="hover:shadow-lg transition-all duration-300 hover:border-qa-blue/50">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Brain className="h-5 w-5 text-qa-blue" />
+                    Test Execution
+                  </CardTitle>
+                  <CardDescription>
+                    Execute tests with AI agents
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    Run intelligent tests on applications using AI agents that can interact with web interfaces like a real user.
+                  </p>
+                </CardContent>
+                <CardFooter className="flex justify-between border-t pt-4">
+                  <Button variant="outline" size="sm" asChild>
+                    <Link to="/ai-test-execution" className="flex items-center gap-2">
+                      Execute <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
                 </CardFooter>
