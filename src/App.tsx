@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound";
 import AITestExecution from "./components/AITestExecution";
 import TestAutomationHub from "./components/TestAutomationHub";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import TestCreation from "./pages/TestCreation";
 
 const queryClient = new QueryClient();
@@ -24,11 +25,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => (
         {children}
       </div>
     </main>
-    <footer className="bg-background border-t py-6">
-      <div className="container text-center text-sm text-muted-foreground">
-        AIQE &copy; {new Date().getFullYear()} - AI-powered Quality Engineering Platform
-      </div>
-    </footer>
+    <Footer />
   </div>
 );
 
